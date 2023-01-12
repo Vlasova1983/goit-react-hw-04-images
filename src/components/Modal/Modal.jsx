@@ -21,7 +21,6 @@ export const Modal =({imageModal,onClose})=> {
       onClose();
     }
   };
-
     
   return ( 
     <>
