@@ -5,16 +5,15 @@ import { useEffect } from 'react';
 export const Modal =({imageModal,onClose})=> {
   useEffect(()=>{
     const handleKeyClose = event => {   
-    if (event.code === 'Escape') {
+      if (event.code === 'Escape') {
       onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyClose);
+    return ()=>{
+      window.removeEventListener('keydown', handleKeyClose);
     }
-  };
-  
-  window.addEventListener('keydown', handleKeyClose);
-  return ()=>{
-    window.removeEventListener('keydown', handleKeyClose);
-  }
- }, [onClose]) 
+  }, [onClose]) 
 
   const handleClose = event => {
     if (event.target === event.currentTarget) {
@@ -27,7 +26,7 @@ export const Modal =({imageModal,onClose})=> {
       <div className={styles.Backdrop}/>     
       <div className={styles.Overlay} onClick={handleClose}>
         <div className={styles.Modal}>                  
-          <img src={imageModal} alt="" />
+          <img src={imageModal} alt="" className={styles.image}/>
         </div>
       </div>      
     </>                      
