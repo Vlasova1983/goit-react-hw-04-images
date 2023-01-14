@@ -4,8 +4,10 @@ import { PropTypes } from 'prop-types';
 
 import styles from  '../ImageGalleryItem/ImageGalleryItem.module.css'
 
-export const ImageGalleryItem =({image})=>  {
- const [isOpen,setIsModalOpen]=useState(false);    
+export const ImageGalleryItem =({image,key})=>  {
+ const [isOpen,setIsModalOpen]=useState(false); 
+ 
+//  console.log(key);
     return ( 
         <>
             <li className={styles.ImageGalleryItem} onClick={() => setIsModalOpen(true)}>
