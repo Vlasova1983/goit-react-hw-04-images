@@ -3,10 +3,12 @@ import styles  from '../ImageGallery/ImageGallery.module.css';
 import { PropTypes } from 'prop-types';
 
 
-export const ImageGallery = ({images}) => {  
+
+export const ImageGallery = ({images}) => {     
+// console.log(images);
     return (  
         <ul className={styles.ImageGallery}>              
-            {images?.map((image)=>( 
+            {images.map((image)=>(                 
                 <ImageGalleryItem key={image.id} image={image}/> 
             ))}   
         </ul>         
