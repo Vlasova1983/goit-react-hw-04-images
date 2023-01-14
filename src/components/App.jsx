@@ -9,16 +9,19 @@ import axios from 'axios';
 import Notiflix from 'notiflix';
 
 export const App  =()=> {  
+  console.log('App');
   const [images,setIsImages] = useState([]);   
   const [value,setIsValue] = useState('');
   const [page,setIsPage] = useState(1);
   const [isLoading,setIsLoader] = useState(false);
   const [isLoadMore,setIsLoadMore] = useState(false); 
 
-  useEffect(()=> {      
-    setIsLoader(true);
-    setIsLoadMore(true);      
-    fetchData(value, page);      
+  useEffect(()=> {
+    if(value!=='' || page!==1) {
+      setIsLoader(true);
+      setIsLoadMore(true);      
+      fetchData({value}, page);   
+    }             
   },[value,page]);
 
   const fetchData = async ({value}, page) => {   
@@ -35,7 +38,7 @@ export const App  =()=> {
     }        
   }; 
   
-  const handleSubmit = async (value)=>{    
+  const handleSubmit = async ({value})=>{    
     setIsValue(value)
     setIsPage(1);
     setIsImages([]);
@@ -44,7 +47,7 @@ export const App  =()=> {
   return (
     <div className={styles.App}> 
       <Searchbar  onSubmit={handleSubmit}/>
-      <ImageGallery images={images}/>        
+      <ImageGallery  images={images}/>        
       {isLoading && <Loader/>}
       {isLoadMore && <Button onClick={()=>setIsPage(prev => prev +1)}/>}            
     </div> 
