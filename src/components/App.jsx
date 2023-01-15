@@ -9,13 +9,12 @@ import axios from 'axios';
 import Notiflix from 'notiflix';
 
 export const App  =()=> {  
-  console.log('App');
   const [images,setIsImages] = useState([]);   
   const [value,setIsValue] = useState('');
   const [page,setIsPage] = useState(1);
   const [isLoading,setIsLoader] = useState(false);
   const [isLoadMore,setIsLoadMore] = useState(false); 
-
+  
   useEffect(()=> {
     if(value!=='' || page!==1) {
       setIsLoader(true);
