@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types';
 
 import styles from  '../ImageGalleryItem/ImageGalleryItem.module.css'
 
-export const ImageGalleryItem =({image,key})=>  {
+export const ImageGalleryItem =({image})=>  {
  const [isOpen,setIsModalOpen]=useState(false); 
  
 //  console.log(key);
