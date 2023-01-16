@@ -5,7 +5,7 @@ import { PropTypes } from 'prop-types';
 
 
 export const ImageGallery = ({images}) => {     
-// console.log(images);
+
     return (  
         <ul className={styles.ImageGallery}>              
             {images.map((image)=>(                 
