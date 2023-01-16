@@ -14,20 +14,20 @@ export const App  =()=> {
   const [page,setIsPage] = useState(1);
   const [isLoading,setIsLoader] = useState(false);
   const [isLoadMore,setIsLoadMore] = useState(false); 
-  
-  useEffect(()=> {
+
+  useEffect(()=> {    
     if(value!=='' || page!==1) {
       setIsLoader(true);
       setIsLoadMore(true);      
       fetchData({value}, page);   
-    }             
-  },[value,page]);
+    };                 
+  }, [value,page]);
 
   const fetchData = async ({value}, page) => {   
     try {
       const response= await axios.get(`https://pixabay.com/api/?key=31294159-be9d27b57dbd5b4db758a00af&q=${value}&image_type=photo&orientation=horizontal&per_page=12&page=${page}`);
-      const images = response.data.hits;      
-      setIsImages([...images,...images]);                      
+      const imagesNextPage = response.data.hits;      
+      setIsImages([...images,...imagesNextPage]);                      
     }
     catch (error) {
       Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
@@ -48,7 +48,7 @@ export const App  =()=> {
       <Searchbar  onSubmit={handleSubmit}/>
       <ImageGallery  images={images}/>        
       {isLoading && <Loader/>}
-      {isLoadMore && <Button onClick={()=>setIsPage(prev => prev +1)}/>}            
+      {isLoadMore && <Button onClick={()=>setIsPage(prev => prev+1)}/>}            
     </div> 
   );   
 };
