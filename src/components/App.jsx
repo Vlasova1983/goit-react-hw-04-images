@@ -15,33 +15,34 @@ export const App  =()=> {
   const [isLoading,setIsLoader] = useState(false);
   const [isLoadMore,setIsLoadMore] = useState(false); 
 
-  useEffect(()=> {    
-    if(value!=='' || page!==1) {
+  useEffect(()=> { 
+    
+    const fetchData = async () => {   
+      try {
+        const response= await axios.get(`https://pixabay.com/api/?key=31294159-be9d27b57dbd5b4db758a00af&q=${value}&image_type=photo&orientation=horizontal&per_page=12&page=${page}`);
+        const imagesNextPage = response.data.hits;      
+        setIsImages(prev => [...prev,...imagesNextPage]);                      
+      }
+      catch (error) {
+        Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+      }
+      finally{
+        setIsLoader(false);    
+      }        
+    }; 
+    
+    if(value!=='' || page!==1){
       setIsLoader(true);
-      setIsLoadMore(true);      
-      fetchData({value}, page);   
+      setIsLoadMore(true);
+      fetchData({value},page);               
     };                 
-  }, [value,page]);
+  }, [value,page]);  
 
-  const fetchData = async ({value}, page) => {   
-    try {
-      const response= await axios.get(`https://pixabay.com/api/?key=31294159-be9d27b57dbd5b4db758a00af&q=${value}&image_type=photo&orientation=horizontal&per_page=12&page=${page}`);
-      const imagesNextPage = response.data.hits;      
-      setIsImages([...images,...imagesNextPage]);                      
-    }
-    catch (error) {
-      Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
-    }
-    finally{
-      setIsLoader(false);    
-    }        
-  }; 
-  
   const handleSubmit = async ({value})=>{    
     setIsValue(value)
     setIsPage(1);
     setIsImages([]);
-  };  
+  };    
       
   return (
     <div className={styles.App}> 
